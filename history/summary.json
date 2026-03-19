@@ -1,0 +1,80 @@
+[
+  {
+    "name": "Production API",
+    "url": "https://api.creatorlayer.eu/health",
+    "icon": "https://icons.duckduckgo.com/ip3/api.creatorlayer.eu.ico",
+    "slug": "production-api",
+    "status": "down",
+    "uptime": "0.00%",
+    "uptimeDay": "0.00%",
+    "uptimeWeek": "0.00%",
+    "uptimeMonth": "0.00%",
+    "uptimeYear": "0.00%",
+    "time": 0,
+    "timeDay": 0,
+    "timeWeek": 0,
+    "timeMonth": 0,
+    "timeYear": 0,
+    "dailyMinutesDown": {
+      "2026-03-19": 16
+    }
+  },
+  {
+    "name": "Sandbox API",
+    "url": "https://sandbox-api.creatorlayer.eu/health",
+    "icon": "https://icons.duckduckgo.com/ip3/sandbox-api.creatorlayer.eu.ico",
+    "slug": "sandbox-api",
+    "status": "down",
+    "uptime": "0.00%",
+    "uptimeDay": "0.00%",
+    "uptimeWeek": "0.00%",
+    "uptimeMonth": "0.00%",
+    "uptimeYear": "0.00%",
+    "time": 0,
+    "timeDay": 0,
+    "timeWeek": 0,
+    "timeMonth": 0,
+    "timeYear": 0,
+    "dailyMinutesDown": {
+      "2026-03-19": 16
+    }
+  },
+  {
+    "name": "Docs",
+    "url": "https://docs.creatorlayer.eu",
+    "icon": "https://icons.duckduckgo.com/ip3/docs.creatorlayer.eu.ico",
+    "slug": "docs",
+    "status": "up",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 523,
+    "timeDay": 523,
+    "timeWeek": 523,
+    "timeMonth": 523,
+    "timeYear": 523,
+    "dailyMinutesDown": {}
+  },
+  {
+    "name": "Website",
+    "url": "https://creatorlayer.eu",
+    "icon": "https://icons.duckduckgo.com/ip3/creatorlayer.eu.ico",
+    "slug": "website",
+    "status": "up",
+    "uptime": "0.00%",
+    "uptimeDay": "0.00%",
+    "uptimeWeek": "0.00%",
+    "uptimeMonth": "0.00%",
+    "uptimeYear": "0.00%",
+    "time": 812,
+    "timeDay": 812,
+    "timeWeek": 812,
+    "timeMonth": 812,
+    "timeYear": 812,
+    "dailyMinutesDown": {
+      "2026-03-19": 32
+    }
+  }
+]
