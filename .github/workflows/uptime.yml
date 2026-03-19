@@ -1,0 +1,20 @@
+name: Uptime CI
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+jobs:
+  uptime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run Upptime
+        uses: upptime/uptime-monitor@master
+        with:
+          config: .upptime.yml
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          SECRETS_CONTEXT: ${{ toJSON(secrets) }}

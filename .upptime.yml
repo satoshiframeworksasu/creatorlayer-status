@@ -1,0 +1,35 @@
+owner: satoshiframeworksasu
+repo: creatorlayer-status
+userAgent: Upptime/1.0 (Creatorlayer)
+sites:
+  - name: Production API
+    url: https://api.creatorlayer.eu/health
+    expectedStatusCodes:
+      - 200
+  - name: Sandbox API
+    url: https://sandbox-api.creatorlayer.eu/health
+    expectedStatusCodes:
+      - 200
+  - name: Docs
+    url: https://docs.creatorlayer.eu
+    expectedStatusCodes:
+      - 200
+  - name: Website
+    url: https://creatorlayer.eu
+    expectedStatusCodes:
+      - 200
+status-website:
+  cname: status.creatorlayer.eu
+  name: Creatorlayer Status
+  introTitle: Creatorlayer API Status
+  introMessage: Real-time uptime for the Creatorlayer API, sandbox, docs, and website.
+  navbar:
+    - title: Docs
+      href: https://docs.creatorlayer.eu
+    - title: Home
+      href: https://creatorlayer.eu
+i18n:
+  footer: Built with [Upptime](https://upptime.js.org)
+notifications:
+  - type: github-issues
+    title: Incident
