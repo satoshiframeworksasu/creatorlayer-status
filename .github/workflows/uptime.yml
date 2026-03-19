@@ -13,8 +13,6 @@ jobs:
           node-version: "20"
       - name: Run Upptime
         uses: upptime/uptime-monitor@master
-        with:
-          config: .upptime.yml
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
           SECRETS_CONTEXT: ${{ toJSON(secrets) }}

@@ -2,7 +2,7 @@ name: Static Site CI
 on:
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
 jobs:
   publish:
@@ -15,7 +15,6 @@ jobs:
       - name: Deploy status site
         uses: upptime/uptime-monitor@master
         with:
-          config: .upptime.yml
           command: "publish"
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
