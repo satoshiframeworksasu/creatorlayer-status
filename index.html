@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creatorlayer Status</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f6f8fa;
+      color: #24292f;
+      min-height: 100vh;
+      padding: 48px 16px;
+    }
+    .container { max-width: 680px; margin: 0 auto; }
+    header { margin-bottom: 40px; }
+    header h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 4px; }
+    header p { color: #57606a; font-size: 0.9rem; }
+    .banner {
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-weight: 500;
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+    }
+    .banner.all-up   { background: #dafbe1; color: #1a7f37; border: 1px solid #aceebb; }
+    .banner.some-down { background: #fff8c5; color: #9a6700; border: 1px solid #f0d070; }
+    .banner.loading  { background: #eef0f3; color: #57606a; border: 1px solid #d0d7de; }
+    .services { display: flex; flex-direction: column; gap: 1px; border-radius: 8px; overflow: hidden; border: 1px solid #d0d7de; }
+    .service {
+      background: #fff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .service-name { font-weight: 500; font-size: 0.95rem; }
+    .service-meta { color: #57606a; font-size: 0.8rem; margin-top: 2px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge.up       { background: #dafbe1; color: #1a7f37; }
+    .badge.down     { background: #ffebe9; color: #cf222e; }
+    .badge.unknown  { background: #eef0f3; color: #57606a; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot.up      { background: #1a7f37; }
+    .dot.down    { background: #cf222e; }
+    .dot.unknown { background: #57606a; }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #57606a;
+    }
+    footer a { color: #0969da; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Creatorlayer Status</h1>
+      <p id="last-updated">Loading…</p>
+    </header>
+
+    <div class="banner loading" id="banner">Checking status…</div>
+
+    <div class="services" id="services"></div>
+
+    <footer>
+      <p>
+        Monitored by <a href="https://upptime.js.org" target="_blank" rel="noopener">Upptime</a> ·
+        <a href="https://docs.creatorlayer.eu" target="_blank" rel="noopener">Docs</a> ·
+        <a href="https://creatorlayer.eu" target="_blank" rel="noopener">Home</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    const SUMMARY_URL =
+      "https://raw.githubusercontent.com/satoshiframeworksasu/creatorlayer-status/main/history/summary.json";
+
+    async function load() {
+      const banner   = document.getElementById("banner");
+      const services = document.getElementById("services");
+      const updated  = document.getElementById("last-updated");
+
+      try {
+        const res  = await fetch(SUMMARY_URL + "?t=" + Date.now());
+        const data = await res.json();
+
+        let allUp = true;
+        let html  = "";
+
+        for (const site of data) {
+          const status  = site.status === "up" ? "up" : site.status === "down" ? "down" : "unknown";
+          const label   = status === "up" ? "Operational" : status === "down" ? "Outage" : "Unknown";
+          const uptime  = site.uptime ? parseFloat(site.uptime).toFixed(2) + "% uptime" : "";
+          if (status !== "up") allUp = false;
+
+          html += `
+            <div class="service">
+              <div>
+                <div class="service-name">${site.name}</div>
+                ${uptime ? `<div class="service-meta">${uptime} (90 days)</div>` : ""}
+              </div>
+              <span class="badge ${status}">
+                <span class="dot ${status}"></span>
+                ${label}
+              </span>
+            </div>`;
+        }
+
+        services.innerHTML = html;
+
+        banner.className = "banner " + (allUp ? "all-up" : "some-down");
+        banner.textContent = allUp
+          ? "All systems operational"
+          : "Some systems are experiencing issues";
+
+        updated.textContent = "Last checked: " + new Date().toLocaleString("en-GB", {
+          dateStyle: "medium", timeStyle: "short"
+        });
+
+      } catch (e) {
+        banner.className = "banner loading";
+        banner.textContent = "Unable to load status data.";
+        updated.textContent = "";
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>
