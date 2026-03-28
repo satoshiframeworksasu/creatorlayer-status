@@ -22,11 +22,6 @@ sites:
     url: https://docs.creatorlayer.eu
     expectedStatusCodes:
       - 200
-  - name: Website
-    url: https://creatorlayer.eu
-    expectedStatusCodes:
-      - 200
-      - 403
 status-website:
   cname: status.creatorlayer.eu
   name: Creatorlayer Status
