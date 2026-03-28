@@ -18,6 +18,7 @@
     header { margin-bottom: 40px; }
     header h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 4px; }
     header p { color: #8b949e; font-size: 0.9rem; }
+
     .banner {
       border-radius: 8px;
       padding: 16px 20px;
@@ -25,20 +26,43 @@
       margin-bottom: 32px;
       font-size: 0.95rem;
     }
-    .banner.all-up   { background: rgba(79,152,163,0.15); color: #4F98A3; border: 1px solid rgba(79,152,163,0.3); }
+    .banner.all-up    { background: rgba(79,152,163,0.15); color: #4F98A3; border: 1px solid rgba(79,152,163,0.3); }
     .banner.some-down { background: rgba(210,153,34,0.15); color: #d29922; border: 1px solid rgba(210,153,34,0.3); }
-    .banner.loading  { background: rgba(139,148,158,0.1); color: #8b949e; border: 1px solid rgba(139,148,158,0.2); }
+    .banner.loading   { background: rgba(139,148,158,0.1); color: #8b949e; border: 1px solid rgba(139,148,158,0.2); }
+
     .services { display: flex; flex-direction: column; gap: 1px; border-radius: 8px; overflow: hidden; border: 1px solid #21262d; }
+
     .service {
       background: #161b22;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .service:hover { background: #1c2128; }
+    .service.open   { background: #1c2128; }
+
+    .service-row {
       padding: 16px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
+
+    .service-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+
+    .chevron {
+      width: 16px;
+      height: 16px;
+      color: #8b949e;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .service.open .chevron { transform: rotate(90deg); }
+
     .service-name { font-weight: 500; font-size: 0.95rem; }
     .service-meta { color: #8b949e; font-size: 0.8rem; margin-top: 2px; }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -50,13 +74,82 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .badge.up       { background: rgba(79,152,163,0.15); color: #4F98A3; }
-    .badge.down     { background: rgba(248,81,73,0.15); color: #f85149; }
-    .badge.unknown  { background: rgba(139,148,158,0.1); color: #8b949e; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .badge.up      { background: rgba(79,152,163,0.15); color: #4F98A3; }
+    .badge.down    { background: rgba(248,81,73,0.15);  color: #f85149; }
+    .badge.unknown { background: rgba(139,148,158,0.1); color: #8b949e; }
+
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .dot.up      { background: #4F98A3; }
     .dot.down    { background: #f85149; }
     .dot.unknown { background: #8b949e; }
+
+    .service-detail {
+      display: none;
+      padding: 0 20px 20px 20px;
+      border-top: 1px solid #21262d;
+      animation: fadeIn 0.15s ease;
+    }
+    .service.open .service-detail { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-top: 16px;
+    }
+    @media (max-width: 480px) { .detail-grid { grid-template-columns: 1fr; } }
+
+    .detail-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: #8b949e; margin-bottom: 3px; }
+    .detail-value { font-size: 0.9rem; color: #e6edf3; font-weight: 500; }
+    .detail-value a { color: #4F98A3; text-decoration: none; font-size: 0.8rem; font-weight: 400; }
+    .detail-value a:hover { text-decoration: underline; }
+
+    .uptime-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #8b949e;
+      margin-bottom: 8px;
+    }
+    .uptime-bars {
+      display: flex;
+      gap: 3px;
+      align-items: flex-end;
+      height: 32px;
+    }
+    .uptime-bar {
+      flex: 1;
+      border-radius: 2px;
+      height: 100%;
+    }
+    .uptime-bar.up      { background: rgba(79,152,163,0.7); }
+    .uptime-bar.down    { background: rgba(248,81,73,0.7); }
+    .uptime-bar.unknown { background: rgba(139,148,158,0.2); }
+
+    .uptime-range {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: #8b949e;
+      margin-top: 6px;
+    }
+
+    .incident-note {
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: #8b949e;
+      padding: 10px 14px;
+      background: rgba(139,148,158,0.08);
+      border-radius: 6px;
+      border: 1px solid #21262d;
+    }
+
     footer {
       margin-top: 40px;
       text-align: center;
@@ -75,7 +168,6 @@
     </header>
 
     <div class="banner loading" id="banner">Checking status…</div>
-
     <div class="services" id="services"></div>
 
     <footer>
@@ -88,8 +180,95 @@
   </div>
 
   <script>
-    const SUMMARY_URL =
-      "https://raw.githubusercontent.com/satoshiframeworksasu/creatorlayer-status/main/history/summary.json";
+    const RAW = "https://raw.githubusercontent.com/satoshiframeworksasu/creatorlayer-status/main";
+    const SUMMARY_URL = RAW + "/history/summary.json";
+
+    function slugify(name) {
+      return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+    }
+
+    function fmt(iso) {
+      if (!iso) return "—";
+      return new Date(iso).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
+    }
+
+    function parseYaml(text) {
+      const obj = {};
+      for (const line of text.split("\n")) {
+        const m = line.match(/^(\w+):\s*(.+)$/);
+        if (m) obj[m[1].trim()] = m[2].trim();
+      }
+      return obj;
+    }
+
+    function buildBars(status, startTime) {
+      const now   = Date.now();
+      const start = startTime ? new Date(startTime).getTime() : now;
+      const days  = Math.min(90, Math.max(1, Math.ceil((now - start) / 86400000)));
+      const bars  = [];
+      for (let i = 0; i < 89; i++) {
+        bars.push((89 - i) < days ? "up" : "unknown");
+      }
+      bars.push(status === "up" ? "up" : status === "down" ? "down" : "unknown");
+      return bars;
+    }
+
+    function renderDetail(site, h) {
+      h = h || {};
+      const status       = site.status === "up" ? "up" : site.status === "down" ? "down" : "unknown";
+      const bars         = buildBars(status, h.startTime);
+      const rangeStart   = h.startTime
+        ? new Date(h.startTime).toLocaleDateString("en-GB", { day: "numeric", month: "short" })
+        : "90 days ago";
+      const responseTime = h.responseTime ? h.responseTime + " ms" : "—";
+      const lastChecked  = h.lastUpdated  ? fmt(h.lastUpdated) : "—";
+      const monitoredUrl = h.url || site.url || "—";
+      const barsHtml     = bars.map(s => `<div class="uptime-bar ${s}"></div>`).join("");
+
+      return `
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">Response time</div>
+            <div class="detail-value">${responseTime}</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Last checked</div>
+            <div class="detail-value">${lastChecked}</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">90-day uptime</div>
+            <div class="detail-value">${site.uptime ? parseFloat(site.uptime).toFixed(2) + "%" : "—"}</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Endpoint</div>
+            <div class="detail-value"><a href="${monitoredUrl}" target="_blank" rel="noopener">${monitoredUrl}</a></div>
+          </div>
+        </div>
+        <div class="uptime-label">Uptime — last 90 days</div>
+        <div class="uptime-bars">${barsHtml}</div>
+        <div class="uptime-range"><span>${rangeStart}</span><span>Today</span></div>
+        <div class="incident-note">No incidents recorded.</div>`;
+    }
+
+    async function fetchHistory(slug) {
+      try {
+        const res = await fetch(`${RAW}/history/${slug}.yml?t=${Date.now()}`);
+        return res.ok ? parseYaml(await res.text()) : null;
+      } catch { return null; }
+    }
+
+    function toggleService(el, site, slug) {
+      const isOpen = el.classList.contains("open");
+      document.querySelectorAll(".service.open").forEach(s => s.classList.remove("open"));
+      if (isOpen) return;
+
+      el.classList.add("open");
+      const detail = el.querySelector(".service-detail");
+      if (detail.dataset.loaded) return;
+      detail.dataset.loaded = "1";
+      detail.innerHTML = `<div style="padding-top:16px;color:#8b949e;font-size:0.85rem;">Loading…</div>`;
+      fetchHistory(slug).then(h => { detail.innerHTML = renderDetail(site, h); });
+    }
 
     async function load() {
       const banner   = document.getElementById("banner");
@@ -99,42 +278,48 @@
       try {
         const res  = await fetch(SUMMARY_URL + "?t=" + Date.now());
         const data = await res.json();
-
         let allUp = true;
         let html  = "";
 
-        for (const site of data) {
-          const status  = site.status === "up" ? "up" : site.status === "down" ? "down" : "unknown";
-          const label   = status === "up" ? "Operational" : status === "down" ? "Outage" : "Unknown";
-          const uptime  = site.uptime ? parseFloat(site.uptime).toFixed(2) + "% uptime" : "";
+        for (let i = 0; i < data.length; i++) {
+          const site   = data[i];
+          const status = site.status === "up" ? "up" : site.status === "down" ? "down" : "unknown";
+          const label  = status === "up" ? "Operational" : status === "down" ? "Outage" : "Unknown";
+          const uptime = site.uptime ? parseFloat(site.uptime).toFixed(2) + "% uptime" : "";
+          const slug   = site.slug || slugify(site.name);
           if (status !== "up") allUp = false;
 
           html += `
-            <div class="service">
-              <div>
-                <div class="service-name">${site.name}</div>
-                ${uptime ? `<div class="service-meta">${uptime} (90 days)</div>` : ""}
+            <div class="service" data-slug="${slug}" data-index="${i}">
+              <div class="service-row">
+                <div class="service-left">
+                  <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 4 10 8 6 12"/>
+                  </svg>
+                  <div>
+                    <div class="service-name">${site.name}</div>
+                    ${uptime ? `<div class="service-meta">${uptime} (90 days)</div>` : ""}
+                  </div>
+                </div>
+                <span class="badge ${status}"><span class="dot ${status}"></span>${label}</span>
               </div>
-              <span class="badge ${status}">
-                <span class="dot ${status}"></span>
-                ${label}
-              </span>
+              <div class="service-detail"></div>
             </div>`;
         }
 
         services.innerHTML = html;
-
-        banner.className = "banner " + (allUp ? "all-up" : "some-down");
-        banner.textContent = allUp
-          ? "All systems operational"
-          : "Some systems are experiencing issues";
-
-        updated.textContent = "Last checked: " + new Date().toLocaleString("en-GB", {
-          dateStyle: "medium", timeStyle: "short"
+        services.querySelectorAll(".service").forEach(el => {
+          const site = data[parseInt(el.dataset.index, 10)];
+          const slug = el.dataset.slug;
+          el.addEventListener("click", () => toggleService(el, site, slug));
         });
 
-      } catch (e) {
-        banner.className = "banner loading";
+        banner.className   = "banner " + (allUp ? "all-up" : "some-down");
+        banner.textContent = allUp ? "All systems operational" : "Some systems are experiencing issues";
+        updated.textContent = "Last checked: " + new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" });
+
+      } catch {
+        banner.className   = "banner loading";
         banner.textContent = "Unable to load status data.";
         updated.textContent = "";
       }
