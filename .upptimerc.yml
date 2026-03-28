@@ -2,6 +2,14 @@ owner: satoshiframeworksasu
 repo: creatorlayer-status
 userAgent: Upptime/1.0 (Creatorlayer)
 sites:
+  - name: Production API
+    url: https://api.creatorlayer.eu/api/v1/health
+    expectedStatusCodes:
+      - 200
+  - name: Sandbox API
+    url: https://api-sandbox.creatorlayer.eu/api/v1/health
+    expectedStatusCodes:
+      - 200
   - name: Docs
     url: https://docs.creatorlayer.eu
     expectedStatusCodes:
