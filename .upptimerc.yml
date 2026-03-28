@@ -10,6 +10,14 @@ sites:
     url: https://api-sandbox.creatorlayer.eu/api/v1/health
     expectedStatusCodes:
       - 200
+  - name: Creator Portal
+    url: https://creator-portal.creatorlayer.eu/creator-portal/login
+    expectedStatusCodes:
+      - 200
+  - name: Lender Portal
+    url: https://lender-portal.creatorlayer.eu/lender-portal/login
+    expectedStatusCodes:
+      - 200
   - name: Docs
     url: https://docs.creatorlayer.eu
     expectedStatusCodes:
