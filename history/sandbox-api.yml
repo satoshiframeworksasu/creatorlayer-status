@@ -1,7 +1,7 @@
 url: https://api-sandbox.creatorlayer.eu/api/v1/health
-status: down
-code: 502
-responseTime: 469
-lastUpdated: 2026-04-03T13:27:03.026Z
+status: up
+code: 200
+responseTime: 473
+lastUpdated: 2026-04-03T14:14:37.709Z
 startTime: 2026-03-28T13:43:13.557Z
 generator: Upptime <https://github.com/upptime/upptime>
